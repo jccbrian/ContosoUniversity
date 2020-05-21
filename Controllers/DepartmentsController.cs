@@ -31,7 +31,7 @@ namespace ContosoUniversity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Department>> GetDepartment(int id)
         {
-            var department = await _context.Department.FindAsync(id);
+            var department = await _context.Department.Where(department => department.IsDeleted == false && department.DepartmentId == id).FirstOrDefaultAsync();
 
             if (department == null)
             {
